@@ -1,5 +1,5 @@
 import { skillCategories } from "@/data/skills";
-import { DotHeading } from "./DotHeading";
+import { DotHeading } from "@/components/ui/DotHeading";
 
 export function SkillsView() {
   return (

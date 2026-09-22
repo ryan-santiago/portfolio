@@ -77,18 +77,19 @@ src/
 │   ├── layout/           Header, Nav, ScrollPageNav, Footer — used on every page
 │   ├── home/             Hero, HeroImage — homepage only
 │   ├── projects/         ProjectCard, ProjectGrid, ProjectModal, TechBadge
-│   ├── about/            DotHeading, AboutMeView, ExperienceView, SkillsView
-│   └── ui/                Button, ChatBubbleIcon — shared primitives
+│   ├── about/            AboutMeView, ExperienceView, SkillsView
+│   └── ui/                Button, ChatBubbleIcon, DotHeading — shared primitives
 ├── data/
 │   ├── projects.ts       Placeholder project entries (single source of truth)
 │   ├── experience.ts     Placeholder work history (single source of truth)
 │   └── skills.ts         Stack highlight tags + skill category breakdown
 ├── lib/
 │   ├── constants.ts      SITE_NAME, CONTACT_EMAIL, MAILTO_HREF, NAV_ITEMS
-│   └── tech-icons.ts     TECH_ICONS lookup (tech name → react-icons component)
+│   ├── tech-icons.ts     TECH_ICONS lookup (tech name → react-icons component)
+│   └── socials.ts        SOCIAL_LINKS (name, href, icon, brand color)
 └── types/
     ├── project.ts        Project interface
-    ├── experience.ts     ExperienceEntry interface
+    ├── experience.ts     ExperienceEntry (company + roles: RoleEntry[]), RoleEntry
     └── skill.ts          SkillCategory interface
 ```
 

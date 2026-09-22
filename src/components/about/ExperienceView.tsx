@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { experience } from "@/data/experience";
-import { DotHeading } from "./DotHeading";
+import { DotHeading } from "@/components/ui/DotHeading";
 
 export function ExperienceView() {
   const [activeId, setActiveId] = useState(experience[0].id);
@@ -34,34 +34,47 @@ export function ExperienceView() {
           })}
         </div>
 
-        <div>
-          <h3 className="text-xl font-bold text-charcoal md:text-2xl">
-            {active.role} @ {active.company}
-          </h3>
-          <p className="mt-1 text-sm text-charcoal-soft">{active.period}</p>
-          <ul className="mt-6 space-y-4">
-            {active.highlights.map((highlight) => (
-              <li
-                key={highlight}
-                className="flex items-start gap-3 text-charcoal-soft"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="mt-1 h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                >
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-                <span>{highlight}</span>
-              </li>
+        <div key={active.id} className="fade-in-up">
+          <p className="text-sm font-semibold uppercase tracking-widest text-charcoal-soft/70">
+            {active.company}
+          </p>
+
+          <div className="mt-6 space-y-10 border-l-2 border-border pl-6">
+            {active.roles.map((role) => (
+              <div key={role.title} className="relative">
+                <span className="absolute top-1.5 -left-6.75 h-3 w-3 rounded-full border-2 border-surface bg-accent" />
+                <h3 className="text-xl font-bold text-charcoal md:text-2xl">
+                  {role.title}
+                </h3>
+                <p className="mt-1 text-sm text-charcoal-soft">
+                  {role.period}
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {role.highlights.map((highlight) => (
+                    <li
+                      key={highlight}
+                      className="flex items-start gap-3 text-charcoal-soft"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-1 h-4 w-4 shrink-0 text-accent"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </div>

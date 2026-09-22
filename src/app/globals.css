@@ -8,6 +8,7 @@
   --color-surface: #fafafa;
   --color-surface-alt: #f0f2f5;
   --color-border: #e2e5ea;
+  --color-grid-line: rgba(46, 46, 46, 0.06);
 }
 
 @theme inline {
@@ -22,7 +23,28 @@
 }
 
 body {
-  background: var(--color-surface);
+  background-color: var(--color-surface);
+  /* Grid fades in along an eased diagonal: invisible at the top-left,
+     fully visible at the bottom-right. The uneven stops keep the
+     crossover off the geometric center so the fade reads as designed
+     rather than a mechanical 50/50 split. */
+  background-image:
+    linear-gradient(
+      135deg,
+      var(--color-surface) 0%,
+      color-mix(in srgb, var(--color-surface) 88%, transparent) 25%,
+      color-mix(in srgb, var(--color-surface) 55%, transparent) 48%,
+      color-mix(in srgb, var(--color-surface) 20%, transparent) 68%,
+      transparent 88%
+    ),
+    linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    40px 40px,
+    40px 40px;
+  background-repeat: no-repeat, repeat, repeat;
+  background-attachment: fixed, fixed, fixed;
   color: var(--color-charcoal);
 }
 
@@ -75,6 +97,24 @@ body {
   }
 }
 
+/* Reusable fade+rise for swapping in-place content (e.g. ExperienceView's
+   detail panel when a different company is selected) — pair with a `key`
+   on the element so React remounts it and restarts the animation. */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 300ms ease-out both;
+}
+
 ::view-transition-group(site-header) {
   animation: none;
   z-index: 100;
@@ -92,5 +132,9 @@ body {
   ::view-transition-group(*) {
     animation-duration: 0s !important;
     animation-delay: 0s !important;
+  }
+
+  .fade-in-up {
+    animation: none;
   }
 }

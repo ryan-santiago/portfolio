@@ -31,10 +31,26 @@ Final, verbatim copy — do not paraphrase:
 Buttons: **Get In Touch** (mailto, primary) · **Browse Projects** (links to
 `/projects`, secondary)
 
-Hero image: circular placeholder (see `docs/design-system.md`) — **TODO:
-replace with Ryan's real photo** when available.
+Hero image: Ryan's real photo (`public/ryan-landing.jpg`), mirrored and
+off-center in an editorial card layout — see `docs/design-system.md`.
 
 ## Projects (`/projects`)
+
+Header matches the About page's intro pattern: a kicker line ("A look
+at what I've shipped 🚀") and `DotHeading` ("Projects."). No tagline
+paragraph beneath it (removed — the disclaimer callout right below
+already carries the intro weight).
+
+Below that, an "Architectural disclaimer" callout (dashed border,
+monospace type, ⚠️ label) — final, verbatim copy, written with humor on
+purpose:
+
+> A couple of legacy projects below no longer run. They rely on
+> retired frameworks, dead cloud providers, or deprecated APIs.
+> Consider them archaeological sites from my time living on the
+> bleeding edge. I've archived most, but saved a few iconic broken
+> ones marked with ⛓️‍💥 — partly for nostalgia, partly as a monument to
+> tech stack evolution.
 
 Status: **placeholder data**, not final. Source of truth is
 `src/data/projects.ts` — edit the array there directly; no other file
@@ -45,34 +61,53 @@ Each entry needs: `slug`, `title`, `description` (1–2 sentences),
 as the card thumbnail**, all entries appear in the click-to-open carousel
 modal), `techStack` (string[] of names — see `src/lib/tech-icons.ts` for
 which names get an icon; unknown names still render as a plain text
-badge), optional `liveUrl`, optional `sourceUrl`.
+badge), optional `liveUrl`, optional `sourceUrl`, optional `legacy`
+(boolean — pays off the disclaimer above: renders a ⛓️‍💥 badge next to
+the title, a grayscale thumbnail, and swaps the "Live site" link for
+muted "Live site (offline)" text; `sourceUrl` still links out normally).
 
-Currently contains 3 placeholder entries ("Placeholder Project One/Two/
-Three") with generic descriptions and `#` links, all reusing the same
+Currently 10 placeholder entries ("Placeholder Project One" through
+"Ten") with generic descriptions and `#` links, all reusing the same
 placeholder screenshot at `public/projects/placeholder-showcase-1.png`
-(a "Good Food" restaurant-site mockup used purely as a stand-in) —
-replace with real projects, real links, and real screenshots per
-project.
+(a "Good Food" restaurant-site mockup used purely as a stand-in) — the
+last two (`placeholder-project-nine`, `placeholder-project-ten`) have
+`legacy: true` so the disclaimer above has something to point at.
+Replace with real projects, real links, real screenshots, and real
+`legacy` flags per project.
 
 ## About (`/about`)
 
 A 3-view page — `AboutMeView`, `ExperienceView`, `SkillsView`
-(`src/components/about/`), each a `min-h-screen` section stacked in
-`src/app/about/page.tsx`. Status: **placeholder content** in all three
-views, not final.
+(`src/components/about/`), each a full-screen section stacked in
+`src/app/about/page.tsx` (`AboutMeView` uses
+`min-h-[calc(100vh-4.5rem)]` to leave room for its bottom-pinned scroll
+cue; the other two use plain `min-h-screen`). Status: **placeholder
+content** in all three views, not final.
 
-- **About Me**: heading + one-line tagline (final-ish copy, but reads as
-  a placeholder tone — revisit wording with Ryan), a "My Stack." row of
-  highlight tags (`stackHighlights` in `src/data/skills.ts`), and a
-  "Keep Scrolling." card — a clickable wayfinding prompt (bouncing arrow
-  + "There's more below") that smooth-scrolls to the Experience section.
-  This replaced an earlier "My Special Place." location placeholder that
-  didn't carry its weight — no bio facts needed here.
+- **About Me**: a kicker line ("A little more about me 👋", matching the
+  Home hero's greeting) + heading + one-line tagline (final-ish copy,
+  but reads as a placeholder tone — revisit wording with Ryan), a "My
+  Stack." row of highlight tags (`stackHighlights` in
+  `src/data/skills.ts`), and a "Socials." 2×2 icon grid — Facebook,
+  Instagram, LinkedIn, GitHub from `SOCIAL_LINKS` in
+  `src/lib/socials.ts`, plus a "Based in the Philippines" location chip
+  reusing copy already established on the Home page. Status:
+  **placeholder `href`s** (`#`) on the social icons — swap in Ryan's
+  real profile URLs before launch; no structural changes needed.
 - **Experience**: interactive company list (click to switch) backed by
-  `src/data/experience.ts` — currently 3 placeholder companies with
-  placeholder role/period/highlight bullets. Replace with Ryan's real
-  work history; no structural changes should be needed, just edit the
-  array.
+  `src/data/experience.ts`. Status: **real companies, mostly placeholder
+  detail**. Each `ExperienceEntry` has a `company` and a `roles` array
+  (most-recent-first) — a promotion within one company is multiple
+  entries in that array, not multiple sidebar rows; the detail panel
+  renders them as a small connected timeline. Currently:
+  - **Questronix Corporation** (current employer): 3 roles reflecting
+    Ryan's promotion history — Software Technical Team Lead (Jul 2023 —
+    Present, real dates) → Technical Resource Manager (`period` is
+    literally `"TODO: add dates"` — fill in before launch) → Fullstack
+    Developer (same `TODO`). All three still have placeholder highlight
+    bullets.
+  - **Jeonsoft Corporation**: 1 role, Software Developer (Aug 2018 — Feb
+    2021, real dates), placeholder highlights.
 - **Skills**: 4-column category breakdown (Web Design, Frontend,
   Backend, Soft Skills) backed by `skillCategories` in
   `src/data/skills.ts`. The Frontend/Backend tags were derived from the

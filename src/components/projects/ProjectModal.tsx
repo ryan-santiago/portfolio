@@ -70,7 +70,7 @@ export function ProjectModal({
                   src={src}
                   alt={`${project.title} screenshot ${i + 1}`}
                   fill
-                  className="object-cover"
+                  className={`object-cover ${project.legacy ? "grayscale" : ""}`}
                   sizes="(min-width: 768px) 768px, 100vw"
                 />
               </div>
@@ -160,9 +160,20 @@ export function ProjectModal({
         </div>
 
         <div className="p-6 sm:p-8">
-          <h3 className="text-2xl font-bold text-charcoal">
-            {project.title}
-          </h3>
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="text-2xl font-bold text-charcoal">
+              {project.title}
+            </h3>
+            {project.legacy && (
+              <span
+                title="Retired — no longer runs"
+                aria-label="Retired project, no longer runs"
+                className="shrink-0 text-2xl leading-none"
+              >
+                ⛓️‍💥
+              </span>
+            )}
+          </div>
           <p className="mt-3 text-charcoal-soft">{project.description}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
@@ -171,14 +182,22 @@ export function ProjectModal({
           </div>
           {(project.liveUrl || project.sourceUrl) && (
             <div className="mt-6 flex gap-4 text-sm font-semibold">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  className="text-accent hover:text-accent-dark"
-                >
-                  Live site
-                </a>
-              )}
+              {project.liveUrl &&
+                (project.legacy ? (
+                  <span
+                    title="No longer online"
+                    className="text-charcoal-soft/50"
+                  >
+                    Live site (offline)
+                  </span>
+                ) : (
+                  <a
+                    href={project.liveUrl}
+                    className="text-accent hover:text-accent-dark"
+                  >
+                    Live site
+                  </a>
+                ))}
               {project.sourceUrl && (
                 <a
                   href={project.sourceUrl}

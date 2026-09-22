@@ -27,11 +27,24 @@ export function ProjectCard({
           src={project.images[0]}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className={`object-cover transition-transform duration-300 group-hover:scale-105 ${
+            project.legacy ? "grayscale" : ""
+          }`}
         />
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-bold text-charcoal">{project.title}</h3>
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-lg font-bold text-charcoal">{project.title}</h3>
+          {project.legacy && (
+            <span
+              title="Retired — no longer runs"
+              aria-label="Retired project, no longer runs"
+              className="shrink-0 text-lg leading-none"
+            >
+              ⛓️‍💥
+            </span>
+          )}
+        </div>
         <p className="mt-2 flex-1 text-sm text-charcoal-soft">
           {project.description}
         </p>
@@ -42,15 +55,23 @@ export function ProjectCard({
         </div>
         {(project.liveUrl || project.sourceUrl) && (
           <div className="mt-4 flex gap-4 text-sm font-semibold">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                onClick={(event) => event.stopPropagation()}
-                className="text-accent hover:text-accent-dark"
-              >
-                Live site
-              </a>
-            )}
+            {project.liveUrl &&
+              (project.legacy ? (
+                <span
+                  title="No longer online"
+                  className="text-charcoal-soft/50"
+                >
+                  Live site (offline)
+                </span>
+              ) : (
+                <a
+                  href={project.liveUrl}
+                  onClick={(event) => event.stopPropagation()}
+                  className="text-accent hover:text-accent-dark"
+                >
+                  Live site
+                </a>
+              ))}
             {project.sourceUrl && (
               <a
                 href={project.sourceUrl}

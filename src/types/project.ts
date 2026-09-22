@@ -7,4 +7,6 @@ export interface Project {
   techStack: string[];
   liveUrl?: string;
   sourceUrl?: string;
+  /** Marks a retired project that no longer runs — shown with a ⛓️‍💥 badge. */
+  legacy?: boolean;
 }

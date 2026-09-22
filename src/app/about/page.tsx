@@ -26,7 +26,7 @@ export default function AboutPage() {
     >
       <div className="mx-auto max-w-6xl px-6">
         <AboutMeView />
-        <div id="experience" className="border-t border-border">
+        <div className="border-t border-border">
           <ExperienceView />
         </div>
         <div className="border-t border-border">
