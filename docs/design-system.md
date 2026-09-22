@@ -25,6 +25,13 @@ CSS-first config — there is no `tailwind.config.ts`).
 `prefers-color-scheme` handling in this build — the default Next.js
 template's dark-mode block was intentionally removed.
 
+**One deliberate exception**: the `snake.exe` easter egg
+(`src/components/snake/`) uses its own monochrome, `font-mono`,
+hard-edged "retro OS window" skin — plain black/white, square corners,
+`border-2 border-charcoal` — instead of the site's rounded/blue/soft
+palette above. That's intentional (it's a nostalgic toy, not a page),
+so don't restyle it to match the rest of the site.
+
 ## Background
 
 Every page shares a subtle 40×40px grid, set once on `body` in

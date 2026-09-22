@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollPageNav } from "@/components/layout/ScrollPageNav";
+import { SnakeGameProvider } from "@/components/snake/SnakeGameContext";
+import { SnakeWindow } from "@/components/snake/SnakeWindow";
 import { SITE_NAME } from "@/lib/constants";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -22,10 +24,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
-        <ScrollPageNav />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SnakeGameProvider>
+          <ScrollPageNav />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <SnakeWindow />
+        </SnakeGameProvider>
       </body>
     </html>
   );

@@ -8,12 +8,18 @@ if copy changes in the code, update it here in the same change.
 - **Site name / logo wordmark**: `CodeRyan`
 - **Contact email**: `ryan.santiago.ict@gmail.com`
   - Referenced from `src/lib/constants.ts` (`CONTACT_EMAIL`, `MAILTO_HREF`)
-  - Used by: header `ChatBubbleIcon`, homepage "Get In Touch" button,
-    footer email link
+  - Used by: header `ChatBubbleIcon`, homepage "Get In Touch" button
   - Do not hardcode this email anywhere else — import from
     `src/lib/constants.ts`
 - **Nav items** (in order): Home (`/`), Projects (`/projects`),
   About (`/about`)
+- **Footer**: copyright line + "Tired of reading tech stacks? Take a
+  quick break →" (plain text, not clickable) next to `SnakeIconButton`,
+  a bordered icon-only button that opens the `snake.exe` easter egg —
+  see `docs/architecture.md`. The footer no longer repeats the contact
+  email (it's already in the header and the Home hero); if
+  that ever changes, don't add the email back here without removing the
+  duplication elsewhere.
 
 ## Home (`/`)
 

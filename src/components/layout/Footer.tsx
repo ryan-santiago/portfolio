@@ -1,4 +1,5 @@
-import { CONTACT_EMAIL, MAILTO_HREF, SITE_NAME } from "@/lib/constants";
+import { SITE_NAME } from "@/lib/constants";
+import { SnakeIconButton } from "@/components/snake/SnakeIconButton";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -9,9 +10,12 @@ export function Footer() {
         <p>
           &copy; {year} {SITE_NAME}. All rights reserved.
         </p>
-        <a href={MAILTO_HREF} className="transition-colors hover:text-accent">
-          {CONTACT_EMAIL}
-        </a>
+        <div className="flex items-center gap-3">
+          <span>Tired of reading tech stacks? Take a quick break &rarr;</span>
+          <div className="flex items-center gap-2">
+            <SnakeIconButton />
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -25,10 +25,10 @@
 | `/about` | `src/app/about/page.tsx` | Bio — a 3-view page (About Me, Experience, Skills), each `min-h-screen` |
 
 `src/app/layout.tsx` is the root layout: it loads the Plus Jakarta Sans
-font, sets site-wide `<Header />` / `<Footer />` / `<ScrollPageNav />`, and
-defines the default `metadata` (title/description). Each route can
-override `metadata` for itself (see `projects/page.tsx` and
-`about/page.tsx`).
+font, sets site-wide `<Header />` / `<Footer />` / `<ScrollPageNav />`,
+wraps everything in `<SnakeGameProvider>`, and renders `<SnakeWindow />`
+as the last child so it overlays every page. Each route can override
+`metadata` for itself (see `projects/page.tsx` and `about/page.tsx`).
 
 ### Scroll-driven navigation & page transitions
 
@@ -63,6 +63,42 @@ sets `document.body.dataset.modalOpen = "true"` and locks
 wheel/touch handling so an open modal can never trigger a scroll-based
 page navigation underneath it.
 
+### The snake.exe easter egg
+
+Triggered from `SnakeIconButton` in the footer — a bordered icon-only
+button (deliberately *not* wrapping the "Tired of reading tech stacks?
+Take a quick break →" label next to it, so that text stays inert and
+only the icon opens anything; the footer's icon row is written to hold
+more of these later, up to a small handful of games) — which just calls
+`open()` from `SnakeGameContext` (`SnakeGameProvider`, mounted once
+around the whole app in `layout.tsx`). `SnakeWindow` renders the actual
+draggable retro window
+at the layout root — since it's a sibling of `{children}` rather than
+part of any page, it survives client-side navigation between routes and
+keeps running (the game loop doesn't pause) while you browse. `SnakeGame`
+is the game itself: a grid of absolutely-positioned divs, one
+`setInterval` tick loop, keyboard arrows + touch-swipe input, and a
+"PRESS ARROW" / "GAME OVER" overlay that doubles as the (re)start
+prompt. Like `ProjectModal`, `SnakeWindow` sets
+`document.body.dataset.modalOpen = "true"` while open so `ScrollPageNav`
+doesn't try to scroll-navigate the page out from under you — but unlike
+`ProjectModal` it does **not** lock `body.style.overflow`, since the
+whole point is that you can keep scrolling/browsing around the floating
+window.
+
+Dragging is hand-rolled with the Pointer Events API (no library) — one
+subtlety worth knowing if you touch this file: the close button must be
+a **sibling** of the draggable title-bar div, not a child of it. A
+`pointerdown` on a descendant still bubbles to the title bar's handler,
+which calls `setPointerCapture`; for mouse input that capture is not
+released automatically on `pointerup` the way it is for touch, so every
+subsequent click — including one on a nested close button — gets
+redirected to the title bar and never reaches the button. Keep drag
+handles and their action buttons as siblings, and always pair
+`setPointerCapture` in a `pointerdown` handler with an explicit
+`releasePointerCapture` in the corresponding `pointerup`/`pointercancel`
+handler.
+
 ## Folder structure
 
 ```
@@ -78,6 +114,7 @@ src/
 │   ├── home/             Hero, HeroImage — homepage only
 │   ├── projects/         ProjectCard, ProjectGrid, ProjectModal, TechBadge
 │   ├── about/            AboutMeView, ExperienceView, SkillsView
+│   ├── snake/            SnakeGameContext, SnakeIconButton, SnakeWindow, SnakeGame
 │   └── ui/                Button, ChatBubbleIcon, DotHeading — shared primitives
 ├── data/
 │   ├── projects.ts       Placeholder project entries (single source of truth)
