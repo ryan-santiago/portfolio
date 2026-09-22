@@ -25,12 +25,17 @@ CSS-first config — there is no `tailwind.config.ts`).
 `prefers-color-scheme` handling in this build — the default Next.js
 template's dark-mode block was intentionally removed.
 
-**One deliberate exception**: the `snake.exe` easter egg
-(`src/components/snake/`) uses its own monochrome, `font-mono`,
-hard-edged "retro OS window" skin — plain black/white, square corners,
-`border-2 border-charcoal` — instead of the site's rounded/blue/soft
-palette above. That's intentional (it's a nostalgic toy, not a page),
-so don't restyle it to match the rest of the site.
+**One deliberate exception**: the retro mini-game windows (`snake.exe`,
+`race-to-zero.exe` — shared chrome in `src/components/retro-window/`)
+use their own monochrome, `font-mono`, hard-edged "retro OS window" skin
+— plain black/white, square corners, `border-2 border-charcoal` —
+instead of the site's rounded/blue/soft palette above. That's
+intentional (they're nostalgic toys, not pages), so don't restyle them
+to match the rest of the site. This applies to the window chrome and
+whatever's inside it (game grid, buttons, status bar) — but each game's
+*trigger icon*, sitting in the ordinary site footer, should still use
+the site's normal bordered-icon-button treatment (see `SnakeIconButton`
+/ `RaceToZeroIconButton`), not the retro skin.
 
 ## Background
 

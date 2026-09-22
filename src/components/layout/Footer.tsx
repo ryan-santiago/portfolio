@@ -1,5 +1,6 @@
 import { SITE_NAME } from "@/lib/constants";
 import { SnakeIconButton } from "@/components/snake/SnakeIconButton";
+import { RaceToZeroIconButton } from "@/components/race-to-zero/RaceToZeroIconButton";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -14,6 +15,7 @@ export function Footer() {
           <span>Tired of reading tech stacks? Take a quick break &rarr;</span>
           <div className="flex items-center gap-2">
             <SnakeIconButton />
+            <RaceToZeroIconButton />
           </div>
         </div>
       </div>

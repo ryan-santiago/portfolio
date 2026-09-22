@@ -14,12 +14,24 @@ if copy changes in the code, update it here in the same change.
 - **Nav items** (in order): Home (`/`), Projects (`/projects`),
   About (`/about`)
 - **Footer**: copyright line + "Tired of reading tech stacks? Take a
-  quick break →" (plain text, not clickable) next to `SnakeIconButton`,
-  a bordered icon-only button that opens the `snake.exe` easter egg —
-  see `docs/architecture.md`. The footer no longer repeats the contact
-  email (it's already in the header and the Home hero); if
+  quick break →" (plain text, not clickable) next to an icon row —
+  `SnakeIconButton` (pixel-snake glyph) and `RaceToZeroIconButton`
+  (bullseye glyph), each a bordered icon-only button that opens its own
+  draggable retro game window — see `docs/architecture.md`. The row is
+  written to hold more game icons later. The footer no longer repeats
+  the contact email (it's already in the header and the Home hero); if
   that ever changes, don't add the email back here without removing the
   duplication elsewhere.
+- **Race to Zero trash talk** (`src/components/race-to-zero/RaceToZeroGame.tsx`,
+  `TEASE_LIGHT`/`TEASE_MEDIUM`/`TEASE_SHARP` arrays): final, verbatim
+  copy, written to be light ribbing that gets a little more pointed as
+  the remaining count drops — never actually mean, since it's just a
+  mini-game. Add more lines to any tier freely; keep the tone consistent
+  with the existing ones. Separately, `TEASE_PLAYER_AHEAD` is the
+  encouraging line shown instead of the sharp tier when the player (not
+  the computer) is the one about to win — keep that pool sincerely
+  congratulatory, not backhanded, since the sharp tier already covers
+  the "computer is winning" tone.
 
 ## Home (`/`)
 
