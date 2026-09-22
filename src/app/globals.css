@@ -115,6 +115,30 @@ body {
   animation: fade-in-up 300ms ease-out both;
 }
 
+/* 2048's tile "pop": plays once when a tile element is first mounted
+   (a spawned tile, or a freshly-merged tile — Game2048.tsx deliberately
+   gives merge results a brand-new id/element rather than reusing one of
+   the two consumed tiles, so this replays on every merge). It never
+   replays on a tile that merely slides to a new position, since that's
+   the same DOM node getting a `transform` transition, not a remount. */
+@keyframes tile-pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tile-pop {
+  animation: tile-pop 160ms ease-out;
+}
+
 ::view-transition-group(site-header) {
   animation: none;
   z-index: 100;
@@ -135,6 +159,10 @@ body {
   }
 
   .fade-in-up {
+    animation: none;
+  }
+
+  .tile-pop {
     animation: none;
   }
 }

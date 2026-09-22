@@ -26,8 +26,9 @@ CSS-first config — there is no `tailwind.config.ts`).
 template's dark-mode block was intentionally removed.
 
 **One deliberate exception**: the retro mini-game windows (`snake.exe`,
-`race-to-zero.exe` — shared chrome in `src/components/retro-window/`)
-use their own monochrome, `font-mono`, hard-edged "retro OS window" skin
+`race-to-zero.exe`, `2048.exe` — shared chrome in
+`src/components/retro-window/`) use their own monochrome, `font-mono`,
+hard-edged "retro OS window" skin
 — plain black/white, square corners, `border-2 border-charcoal` —
 instead of the site's rounded/blue/soft palette above. That's
 intentional (they're nostalgic toys, not pages), so don't restyle them

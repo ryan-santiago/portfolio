@@ -63,15 +63,19 @@ sets `document.body.dataset.modalOpen = "true"` and locks
 wheel/touch handling so an open modal can never trigger a scroll-based
 page navigation underneath it.
 
-### The retro mini-games (snake.exe, race-to-zero.exe)
+### The retro mini-games (snake.exe, race-to-zero.exe, 2048.exe)
 
-Two easter-egg games live in `src/components/retro-window/` (shared
+Three easter-egg games live in `src/components/retro-window/` (shared
 infra) plus one folder per game (`src/components/snake/`,
-`src/components/race-to-zero/`). Each game is triggered from its own
-bordered icon-only button in the footer's icon row (deliberately *not*
-wrapping the "Tired of reading tech stacks? Take a quick break →" label
-next to it, so that text stays inert and only the icons open anything —
-the row is written to hold a small handful more of these later).
+`src/components/race-to-zero/`, `src/components/game2048/`). Each game
+is triggered from its own bordered icon-only button in the footer's
+icon row (deliberately *not* wrapping the "Tired of reading tech
+stacks? Take a quick break →" label next to it, so that text stays
+inert and only the icons open anything). Adding a fourth game means:
+call `createGameWindowContext("Name")` for its context, wrap its game
+component in `<RetroWindow>` for the chrome, add an icon button to the
+footer, and give it its own `spawnOffset` (see below) so it cascades
+rather than stacking on an existing window.
 
 - **`createGameWindowContext(name)`** (`retro-window/createGameWindowContext.tsx`)
   is a factory, not a single context: each game calls it once (see
@@ -167,6 +171,58 @@ player. The computer's move itself waits a randomized
 `randomThinkDelay()` (700–1400ms, not a fixed interval) before applying
 — makes it read as thinking rather than an instant calculation.
 
+**`Game2048`** (`game2048/Game2048.tsx`): the classic sliding-tile game
+— a 4×4 board (`SIZE = 4`), arrow keys / D-pad / swipe to shift every
+tile in that direction, equal adjacent tiles merge once per move, a new
+`2` (90%) or `4` (10%) spawns in a random empty cell after every move
+that actually changed the board. `hasMovesLeft()` (no empty cells *and*
+no two adjacent equal tiles anywhere) drives the "GAME OVER" state;
+like Snake, pressing any direction after game-over restarts instead of
+attempting a move. Reaching 2048 sets a one-shot `justWon` flag (tracked
+separately from a `hasWonRef` so it can't re-fire on a later move) that
+shows "YOU REACHED 2048!" for exactly one status-bar render, then play
+continues normally past it rather than hard-stopping — unlike Snake/
+Race to Zero, hitting the "win" condition here isn't a terminal state.
+Tiles are rendered in the same monochrome retro style as the rest of
+the site's games (no per-value color palette); tiles ≥128 get an
+inverted `bg-charcoal`/`text-white` fill purely for visual hierarchy at
+a glance.
+
+Board state is a flat `Tile[]` (`{ id, value, row, col }`), not a plain
+`number[][]` grid — that's specifically what makes the slide/merge
+*animation* possible. Each tile keeps a stable `id` across a move, so
+React updates the same DOM node's position rather than tearing it down
+and recreating a new one at the destination; only a genuinely new node
+(a merge result or a freshly spawned tile) mounts fresh. A move runs in
+two phases, mirroring Race to Zero's `setTimeout`-staged pattern:
+
+1. **`computeSlide()`** figures out, per row or column (grouped and
+   sorted along the direction of travel via `slotToRowCol()`), where
+   every tile ends up — including a tile that's about to be consumed by
+   a merge, which slides to the *same* destination cell as the tile it
+   merges into. `setTiles()` is called immediately with these slid (but
+   not yet merged) positions, so the existing tile elements' `transform`
+   transitions to the new coordinates (`SLIDE_MS` = 130ms).
+2. After a `setTimeout(SLIDE_MS)`, the merge actually resolves: consumed
+   tiles are dropped, and — important — each merge produces a **brand
+   new** tile object/id at the landing cell rather than bumping the
+   survivor's value in place. That's deliberate: giving it a fresh id
+   means it mounts as a new DOM node exactly where the slide already
+   left it (no visual jump), which lets the `tile-pop` mount animation
+   (`globals.css`) play automatically — the same trick a freshly spawned
+   tile relies on. `isAnimatingRef` blocks new input for the whole two
+   phases so a rapid key-mash mid-slide can't corrupt tile identity.
+
+The two transforms involved (the slide's `translate` and the pop's
+`scale`) are deliberately on **two nested elements**, not combined on
+one. `tile-pop` is a `@keyframes` `animation` and the slide is an inline
+`transition` — both animate the same CSS property (`transform`), and if
+they lived on the same element the keyframe animation would briefly
+overwrite the inline translate for its duration, so a spawning/merging
+tile would pop at the grid's top-left corner instead of its actual
+cell. Splitting them across an outer (position) and inner (pop) div
+sidesteps the conflict entirely.
+
 ## Folder structure
 
 ```
@@ -185,6 +241,7 @@ src/
 │   ├── retro-window/     RetroWindow (shared chrome), createGameWindowContext
 │   ├── snake/            SnakeGameContext, SnakeIconButton, SnakeWindow, SnakeGame
 │   ├── race-to-zero/     RaceToZeroContext, RaceToZeroIconButton, RaceToZeroWindow, RaceToZeroGame
+│   ├── game2048/         Game2048Context, Game2048IconButton, Game2048Window, Game2048
 │   └── ui/                Button, ChatBubbleIcon, DotHeading — shared primitives
 ├── data/
 │   ├── projects.ts       Placeholder project entries (single source of truth)

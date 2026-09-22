@@ -1,6 +1,7 @@
 import { SITE_NAME } from "@/lib/constants";
 import { SnakeIconButton } from "@/components/snake/SnakeIconButton";
 import { RaceToZeroIconButton } from "@/components/race-to-zero/RaceToZeroIconButton";
+import { Game2048IconButton } from "@/components/game2048/Game2048IconButton";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -16,6 +17,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <SnakeIconButton />
             <RaceToZeroIconButton />
+            <Game2048IconButton />
           </div>
         </div>
       </div>

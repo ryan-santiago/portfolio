@@ -15,13 +15,14 @@ if copy changes in the code, update it here in the same change.
   About (`/about`)
 - **Footer**: copyright line + "Tired of reading tech stacks? Take a
   quick break →" (plain text, not clickable) next to an icon row —
-  `SnakeIconButton` (pixel-snake glyph) and `RaceToZeroIconButton`
-  (bullseye glyph), each a bordered icon-only button that opens its own
-  draggable retro game window — see `docs/architecture.md`. The row is
-  written to hold more game icons later. The footer no longer repeats
-  the contact email (it's already in the header and the Home hero); if
-  that ever changes, don't add the email back here without removing the
-  duplication elsewhere.
+  `SnakeIconButton` (pixel-snake glyph), `RaceToZeroIconButton`
+  (bullseye glyph), and `Game2048IconButton` (2×2 grid glyph), each a
+  bordered icon-only button that opens its own draggable retro game
+  window — see `docs/architecture.md`. The row is written to hold more
+  game icons later. The footer no longer repeats the contact email
+  (it's already in the header and the Home hero); if that ever changes,
+  don't add the email back here without removing the duplication
+  elsewhere.
 - **Race to Zero trash talk** (`src/components/race-to-zero/RaceToZeroGame.tsx`,
   `TEASE_LIGHT`/`TEASE_MEDIUM`/`TEASE_SHARP` arrays): final, verbatim
   copy, written to be light ribbing that gets a little more pointed as

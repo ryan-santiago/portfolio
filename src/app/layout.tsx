@@ -8,6 +8,8 @@ import { SnakeGameProvider } from "@/components/snake/SnakeGameContext";
 import { SnakeWindow } from "@/components/snake/SnakeWindow";
 import { RaceToZeroProvider } from "@/components/race-to-zero/RaceToZeroContext";
 import { RaceToZeroWindow } from "@/components/race-to-zero/RaceToZeroWindow";
+import { Game2048Provider } from "@/components/game2048/Game2048Context";
+import { Game2048Window } from "@/components/game2048/Game2048Window";
 import { SITE_NAME } from "@/lib/constants";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -28,12 +30,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col font-sans">
         <SnakeGameProvider>
           <RaceToZeroProvider>
-            <ScrollPageNav />
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <SnakeWindow />
-            <RaceToZeroWindow />
+            <Game2048Provider>
+              <ScrollPageNav />
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <SnakeWindow />
+              <RaceToZeroWindow />
+              <Game2048Window />
+            </Game2048Provider>
           </RaceToZeroProvider>
         </SnakeGameProvider>
       </body>
