@@ -59,18 +59,26 @@ export function ProjectModal({
         onClick={(event) => event.stopPropagation()}
         className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-y-auto rounded-2xl bg-surface shadow-xl"
       >
-        <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-charcoal">
+        <div className="relative aspect-3/2 w-full shrink-0 overflow-hidden bg-charcoal">
           <div
             className="flex h-full transition-transform duration-300 ease-out"
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
             {project.images.map((src, i) => (
-              <div key={src + i} className="relative h-full w-full shrink-0">
+              <div key={src + i} className="relative h-full w-full shrink-0 overflow-hidden">
+                <Image
+                  src={src}
+                  alt=""
+                  aria-hidden
+                  fill
+                  className={`scale-110 object-cover opacity-60 blur-2xl ${project.legacy ? "grayscale" : ""}`}
+                  sizes="(min-width: 768px) 768px, 100vw"
+                />
                 <Image
                   src={src}
                   alt={`${project.title} screenshot ${i + 1}`}
                   fill
-                  className={`object-cover ${project.legacy ? "grayscale" : ""}`}
+                  className={`object-contain ${project.legacy ? "grayscale" : ""}`}
                   sizes="(min-width: 768px) 768px, 100vw"
                 />
               </div>
@@ -193,6 +201,8 @@ export function ProjectModal({
                 ) : (
                   <a
                     href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-accent hover:text-accent-dark"
                   >
                     Live site
@@ -201,6 +211,8 @@ export function ProjectModal({
               {project.sourceUrl && (
                 <a
                   href={project.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-accent hover:text-accent-dark"
                 >
                   Source

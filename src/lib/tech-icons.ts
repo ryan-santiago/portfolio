@@ -14,6 +14,11 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiVercel,
+  SiPrisma,
+  SiNestjs,
+  SiMysql,
+  SiTraefikproxy,
+  SiJsonwebtokens,
 } from "react-icons/si";
 
 // Lookup by the exact name used in a project's `techStack` array. Names
@@ -33,4 +38,9 @@ export const TECH_ICONS: Record<string, IconType> = {
   Docker: SiDocker,
   Vercel: SiVercel,
   AWS: FaAws,
+  Prisma: SiPrisma,
+  NestJS: SiNestjs,
+  MySQL: SiMysql,
+  Traefik: SiTraefikproxy,
+  "JWT (RS256)": SiJsonwebtokens,
 };

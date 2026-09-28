@@ -5,9 +5,11 @@ import { TechBadge } from "./TechBadge";
 export function ProjectCard({
   project,
   onOpen,
+  eager = false,
 }: {
   project: Project;
   onOpen: () => void;
+  eager?: boolean;
 }) {
   return (
     <div
@@ -27,6 +29,8 @@ export function ProjectCard({
           src={project.images[0]}
           alt={project.title}
           fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          loading={eager ? "eager" : "lazy"}
           className={`object-cover transition-transform duration-300 group-hover:scale-105 ${
             project.legacy ? "grayscale" : ""
           }`}
@@ -66,6 +70,8 @@ export function ProjectCard({
               ) : (
                 <a
                   href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={(event) => event.stopPropagation()}
                   className="text-accent hover:text-accent-dark"
                 >
@@ -75,6 +81,8 @@ export function ProjectCard({
             {project.sourceUrl && (
               <a
                 href={project.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={(event) => event.stopPropagation()}
                 className="text-accent hover:text-accent-dark"
               >

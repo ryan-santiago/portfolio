@@ -13,10 +13,11 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
   return (
     <>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+        {projects.map((project, i) => (
           <ProjectCard
             key={project.slug}
             project={project}
+            eager={i < 3}
             onOpen={() => setOpenSlug(project.slug)}
           />
         ))}
