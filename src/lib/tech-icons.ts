@@ -19,6 +19,8 @@ import {
   SiMysql,
   SiTraefikproxy,
   SiJsonwebtokens,
+  SiHtml5,
+  SiCss,
 } from "react-icons/si";
 
 // Lookup by the exact name used in a project's `techStack` array. Names
@@ -43,4 +45,8 @@ export const TECH_ICONS: Record<string, IconType> = {
   MySQL: SiMysql,
   Traefik: SiTraefikproxy,
   "JWT (RS256)": SiJsonwebtokens,
+  HTML5: SiHtml5,
+  CSS3: SiCss,
+  VanillaJS: SiJavascript, // Using the JS icon for VanillaJS
+  Nodemailer: SiNodedotjs, // Using the Node.js icon for Nodemailer
 };

@@ -7,12 +7,17 @@ const PLACEHOLDER_IMAGE = "/projects/placeholder-showcase-1.png";
 const MICROSERVICE_MONOREPO_1 = "/projects/microservice-monorepo-1.png";
 const MICROSERVICE_MONOREPO_2 = "/projects/microservice-monorepo-2.png";
 
+const SKYMAIL_1 = "/projects/skymail-01.png";
+const SKYMAIL_2 = "/projects/skymail-02.png";
+const SKYMAIL_3 = "/projects/skymail-03.png";
+const SKYMAIL_4 = "/projects/skymail-04.png";
+const SKYMAIL_5 = "/projects/skymail-05.png";
+
 export const projects: Project[] = [
   {
     slug: "microservice-monorepo",
     title: "Microservice Monorepo",
-    description:
-      "Short placeholder description of what this project does and the problem it solves.",
+    description: `Independent microservices - each with it's own database and it's owner container. Stop one, and the other two keep answering through the same gateway.`,
     images: [MICROSERVICE_MONOREPO_1, MICROSERVICE_MONOREPO_2],
     techStack: [
       "NestJS",
@@ -26,14 +31,14 @@ export const projects: Project[] = [
     sourceUrl: "https://github.com/ryan-santiago/microservice-monorepo",
   },
   {
-    slug: "placeholder-project-two",
-    title: "Placeholder Project Two",
+    slug: "skymail-project",
+    title: "Skymail Project",
     description:
-      "Short placeholder description of what this project does and the problem it solves.",
-    images: [PLACEHOLDER_IMAGE, PLACEHOLDER_IMAGE],
-    techStack: ["Node.js", "PostgreSQL", "AWS"],
-    liveUrl: "#",
-    sourceUrl: "#",
+      "A clean, simple email sender. Bring your own SMTP account and send to anyone.",
+    images: [SKYMAIL_1, SKYMAIL_2, SKYMAIL_3, SKYMAIL_4, SKYMAIL_5],
+    techStack: ["HTML5", "CSS3", "VanillaJS", "Node.js", "Nodemailer"],
+    liveUrl: "https://skymail.coderyan.dev",
+    sourceUrl: "https://github.com/ryan-santiago/skymail",
   },
   {
     slug: "placeholder-project-three",
