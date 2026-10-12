@@ -13,6 +13,12 @@ const SKYMAIL_3 = "/projects/skymail-03.png";
 const SKYMAIL_4 = "/projects/skymail-04.png";
 const SKYMAIL_5 = "/projects/skymail-05.png";
 
+const GINTONGARAW_1 = "/projects/gintongaraw-01.png";
+const GINTONGARAW_2 = "/projects/gintongaraw-02.png";
+const GINTONGARAW_3 = "/projects/gintongaraw-03.png";
+const GINTONGARAW_4 = "/projects/gintongaraw-04.png";
+const GINTONGARAW_5 = "/projects/gintongaraw-05.png";
+
 export const projects: Project[] = [
   {
     slug: "microservice-monorepo",
@@ -39,6 +45,22 @@ export const projects: Project[] = [
     techStack: ["HTML5", "CSS3", "VanillaJS", "Node.js", "Nodemailer"],
     liveUrl: "https://skymail.coderyan.dev",
     sourceUrl: "https://github.com/ryan-santiago/skymail",
+  },
+  {
+    slug: "gintong-araw-project",
+    title: "Gintong Araw",
+    description:
+      "Member records, QR ID cards, meeting attendance and monthly dues for a 500-household homeowners' association, built for a phone at the gate.",
+    images: [
+      GINTONGARAW_1,
+      GINTONGARAW_2,
+      GINTONGARAW_3,
+      GINTONGARAW_4,
+      GINTONGARAW_5,
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    liveUrl: "#",
+    sourceUrl: "#",
   },
   {
     slug: "placeholder-project-three",
